@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "27944498178",
+    "project_id": "indlay",
+    "storage_bucket": "indlay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27944498178:android:be9de88b3abae0ce93231b",
+        "android_client_info": {
+          "package_name": "com.tribalsoft.indlay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27944498178-01rn56j04d79upv3vddcpgg5471q7gln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiKOABzanmUcl7NkQSS5y0E98pCLZyvpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27944498178-01rn56j04d79upv3vddcpgg5471q7gln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
