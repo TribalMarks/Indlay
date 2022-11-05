@@ -9,12 +9,14 @@ class NewProject extends StatefulWidget {
   var database;
   var database2;
   var databasedit;
+  var name;
 
   NewProject(
       {Key? key,
       required this.database,
       required this.database2,
-      required this.databasedit})
+      required this.databasedit,
+      required this.name})
       : super(key: key);
 
   @override
@@ -22,6 +24,27 @@ class NewProject extends StatefulWidget {
 }
 
 class _NewProjectState extends State<NewProject> {
+  Map allProjectDetails = {'name': 'projectName'};
+
+  getProjectDetails(String name) async {
+    List<Map> details = await widget.database2
+        .rawQuery('SELECT * FROM myNewProjectsDemo WHERE name =?', [name]);
+
+    if (details.isNotEmpty) {
+      var data = details.first;
+
+      setState(() {
+        allProjectDetails = data;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    getProjectDetails(widget.name);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,12 +54,12 @@ class _NewProjectState extends State<NewProject> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Row(
-                children: const [
-                  SizedBox(
+                children: [
+                  const SizedBox(
                     height: 30,
                   ),
-                  Text('Project Name:',
-                      style: TextStyle(
+                  Text('Project Name: ${allProjectDetails['name']}',
+                      style: const TextStyle(
                           fontFamily: "Varela",
                           fontSize: 15,
                           fontWeight: FontWeight.bold))
@@ -56,8 +79,8 @@ class _NewProjectState extends State<NewProject> {
               Expanded(child: Container())
             ],
           )),
-          Spacer(),
-          MyPropertyInspector(),
+          const Spacer(),
+          const MyPropertyInspector(),
         ],
       ),
     );

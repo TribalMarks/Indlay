@@ -27,13 +27,18 @@ class _ProjectPageState extends State<ProjectPage> {
   int _intValueArea = 100;
   int _intValueQuantity = 4;
 
+  String codeName = '';
+
   createProject(String facilityName, String source, String comments, int area,
       int quantity) async {
-    String facilityNameTrim =
+    String facilityCodeTitle =
         DateTime.now().millisecondsSinceEpoch.toString().trim();
 
-    await widget.database2.insert('myNewProjects', <String, Object?>{
+    codeName = nameController.text.replaceAll(" ", "");
+
+    await widget.database2.insert('myNewProjectsDemo', <String, Object?>{
       'name': facilityName,
+      'codename': codeName,
       'source': source,
       'comment': comments,
       'area': area,
@@ -41,11 +46,11 @@ class _ProjectPageState extends State<ProjectPage> {
     });
 
     await widget.database.insert('myProjects',
-        <String, Object?>{'title': facilityNameTrim, 'name': facilityName});
+        <String, Object?>{'title': facilityCodeTitle, 'name': facilityName});
 
-    await widget.database2.close();
-    await widget.databasedit.close();
-    await widget.database.close();
+    // await widget.database2.close();
+    // await widget.databasedit.close();
+    // await widget.database.close();
 
     // ignore: use_build_context_synchronously
     Navigator.push(
@@ -55,6 +60,7 @@ class _ProjectPageState extends State<ProjectPage> {
                   database: widget.database,
                   database2: widget.database2,
                   databasedit: widget.databasedit,
+                  name: nameController.text.trim(),
                 )));
   }
 

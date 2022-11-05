@@ -125,17 +125,18 @@ class _StockholmDemoAppState extends State<StockholmDemoApp> {
 
   createMyDatabase() async {
     await widget.database.execute('''
-  CREATE TABLE myProjects (
-      id INTEGER PRIMARY KEY,
-      title TEXT,
-      name TEXT
-  )
-  ''');
+    CREATE TABLE myProjects (
+        id INTEGER PRIMARY KEY,
+        title TEXT,
+        name TEXT
+    )
+    ''');
 
     await widget.database2.execute('''
-  CREATE TABLE myNewProjects (
+  CREATE TABLE myNewProjectsDemo (
       id INTEGER PRIMARY KEY,
       name TEXT,
+      codename TEXT,
       source TEXT,
       comment TEXT,
       area INTEGER,
@@ -144,12 +145,14 @@ class _StockholmDemoAppState extends State<StockholmDemoApp> {
   ''');
 
     await widget.databasedit.execute('''
-  CREATE TABLE myNewProjectsEdits (
+  CREATE TABLE myNewProjectsEditsDemo (
       id INTEGER PRIMARY KEY,
       name TEXT,
+      codename TEXT,
       color TEXT
   )
   ''');
+
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('firstopen', true);
   }
@@ -217,7 +220,7 @@ class _IndLayHomePageState extends State<IndLayHomePage> {
   final _index = 0;
 
   String projectName = 'project';
-  late Map allProjectDetails = {'name': 'projectName'};
+  Map allProjectDetails = {'name': 'projectName'};
 
   getLatestProject() async {
     var dbLenght = await widget.database.query('myProjects');
@@ -242,7 +245,7 @@ class _IndLayHomePageState extends State<IndLayHomePage> {
 
   getProjectDetails(String name) async {
     List<Map> details = await widget.database2
-        .rawQuery('SELECT * FROM myNewProjects WHERE name =?', [name]);
+        .rawQuery('SELECT * FROM myNewProjectsDemo WHERE name =?', [name]);
 
     if (details.isNotEmpty) {
       var data = details.first;
@@ -471,9 +474,11 @@ class _IndLayHomePageState extends State<IndLayHomePage> {
                           database2: widget.database2,
                           databasedit: widget.databasedit,
                           activateArrowBottons: false),
-                      Expanded(child: page)
+                      Expanded(child: page),
                     ],
-                  ))
+                  )),
+                  const Spacer(),
+                  const MyPropertyInspector(),
                 ],
               ));
   }
