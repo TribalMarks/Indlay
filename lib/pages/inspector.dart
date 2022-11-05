@@ -37,40 +37,26 @@ class _MyPropertyInspectorState extends State<MyPropertyInspector> {
       ),
       child: StockholmPropertyInspector(
         header: const StockholmPIHeader(
-          child: Text('Property inspector'),
+          child: Text('Project inspector'),
         ),
         properties: [
-          StockholmPICheckboxProp(
-            name: 'Checkbox',
-            value: _checkboxValue,
-            onChanged: (value) {
-              setState(() {
-                _checkboxValue = value;
-              });
-            },
+          const SizedBox(
+            height: 20,
           ),
-          const StockholmPIDivider(),
-          StockholmPIEditableIntProp(
-            name: 'Integer value',
-            value: _intValue,
-            onChanged: (value) {
-              setState(() {
-                _intValue = value;
-              });
-            },
-          ),
-          const StockholmPITextProp(
-            name: 'Text',
-            value: 'Hello',
-          ),
-          const StockholmPIListProp(
-            name: 'List',
-            fallbackText: 'My list is empty',
-          ),
-          const StockholmPIListProp(
-            name: 'List',
-            fallbackText: 'My list is empty',
+          // Text('Department Names'),
+
+          StockholmPIListProp(
+            name: 'Departments Names',
+            fallbackText: 'Departments',
             list: [
+              ListView.builder(
+                itemCount: 5,
+                itemBuilder: (BuildContext context, int index) {
+                  return Row(
+                    children: [],
+                  );
+                },
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: Text('Item 1'),
